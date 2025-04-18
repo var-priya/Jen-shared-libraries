@@ -25,7 +25,7 @@ def call(Map config = [:]) {
         
         // Update deployment manifests with new image tags - using proper Linux sed syntax
         sh """
-            # Update main application deployment - note the correct image name is trainwithshubham/easyshop-app
+            # Update main application deployment - note the correct image name is varpriya/easyshop-app
             sed -i "s|image: varpriya/easyshop-app:.*|image: varpriya/easyshop-app:${imageTag}|g" ${manifestsPath}/08-easyshop-deployment.yaml
             
             # Update migration job if it exists
@@ -47,7 +47,7 @@ def call(Map config = [:]) {
                 git commit -m "Update image tags to ${imageTag} and ensure correct domain [ci skip]"
                 
                 # Set up credentials for push
-                git remote set-url origin https://\${GIT_USERNAME}:\${GIT_PASSWORD}@github.com/LondheShubham153/tws-e-commerce-app.git
+                git remote set-url origin https://\${GIT_USERNAME}:\${GIT_PASSWORD}@github.com/var-priya/E-commerce-application.git
                 git push origin HEAD:\${GIT_BRANCH}
             fi
         """
