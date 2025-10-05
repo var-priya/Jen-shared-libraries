@@ -1,4 +1,4 @@
-def call(Map Config = [:]){
+def call(Map config = [:]){
   def repoUrl = config.url ?: 'https://github.com/var-priya/E-commerce-application.git'
   def branchName = config.branchName ?: 'master'
   def credentialsId = config.credentialsId ?: ''
@@ -11,6 +11,6 @@ def call(Map Config = [:]){
   }
   catch(err){
     echo "Failed to Checkout for ${environment.toUpperCase()} : ${err.getMessage()}"
-    error("Stopping pipeline due to failure Checkout for ${envorinment.toUpperCase()})
+    error("Stopping pipeline due to failure Checkout for ${environment.toUpperCase()}")
   }
   
