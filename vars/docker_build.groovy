@@ -5,15 +5,15 @@ def call(Map config = [:]) {
     def context = config.context ?: '.'
     def environment = config.environment ?: 'dev'
     
-    echo "Building Docker image for ${environment.toUpperCase} : ${imageName}:${imageTag} using ${dockerfile}"
+    echo "Building Docker image for ${environment.toUpperCase()} : ${imageName}:${imageTag} using ${dockerfile}"
     try{
     sh """
         docker build -t ${imageName}:${imageTag} -f ${dockerfile} ${context}
     """
-    echo "Docker image ${imageName}:${imageTag} is successfully build for ${environment.toUpperCase} from ${dockerfile}"
+    echo "Docker image ${imageName}:${imageTag} is successfully build for ${environment.toUpperCase()} from ${dockerfile}"
     }
     catch(err){
-        echo "Failed to build the image for ${environment.toUpperCase} : ${err.getMessage()}"
+        echo "Failed to build the image for ${environment.toUpperCase()} : ${err.getMessage()}"
         error("Stopping pipeline as  build is failed ")
     }
 }
