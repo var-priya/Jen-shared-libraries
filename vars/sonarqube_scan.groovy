@@ -9,7 +9,15 @@ def call(Map config = [:]) {
     withSonarQubeEnv(sonarServer){
          sh "sonar-scanner -dsonar.projectKey = ${projectKey} -Dsonar.projectName = ${projectName} -Dsonar.sources = ."
     }
-    echo "SonarQube scanning is completed successfully for ${environment.toUpperCase}."
+    // Wait for Quality Gate result
+        timeout(time: 5, unit: 'MINUTES') {
+            def qg = waitForQualityGate()
+            if (qg.status != 'OK') {
+                error("Pipeline stopped due to Quality Gate failure: ${qg.status}")
+            } else {
+                echo "Quality Gate passed for ${projectKey}"
+            }
+        }
     }
     catch(err){
         echo "Failed to scan for ${environment.toUpperCase} : ${err.getMessage()}"
