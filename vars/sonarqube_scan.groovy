@@ -1,7 +1,7 @@
 def call(Map config = [:]) {
     def projectKey = config.projectKey ?: error("Project key is required")
     def projectName = config.projectName ?: "My Project"
-    def envinronment = config.envinronment ?: 'dev'
+    def environment = config.envinronment ?: 'dev'
     def sonarServer = config.sonarServer ?: 'sonar'
     
     echo " Running SonarQube scan for project '${projectKey}' in '${environment.toUpperCase()}' environment"
