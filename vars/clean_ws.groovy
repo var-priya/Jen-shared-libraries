@@ -1,4 +1,4 @@
-def call(Map Config = [:]) {
+def call(Map config = [:]) {
     def when = config.when ?: 'pre'
     def environment = config.environment ?: 'dev'
     echo "Cleaning up workspace for ${environment.toUpperCase()}(${when})"
