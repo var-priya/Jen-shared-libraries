@@ -15,7 +15,17 @@ def call(Map config = [:]) {
             passwordVariable: 'DOCKER_PASSWORD'
         )]) {
             sh """
+                echo "Checking image list before tagging..."
+                docker images | grep ${imageName} || true
+
+                echo "Tagging ${imageName}:${imageTag} as latest..."
+                docker tag ${imageName}:${imageTag} ${imageName}:latest || echo "Tag failed, image not found"
+
+                echo "Listing Docker images after tagging..."
+                docker images | grep ${imageName} || true
+
                 echo "\$DOCKER_PASSWORD" | docker login -u "\$DOCKER_USERNAME" --password-stdin
+
                 docker push ${imageName}:${imageTag}
                 docker push ${imageName}:latest
             """
