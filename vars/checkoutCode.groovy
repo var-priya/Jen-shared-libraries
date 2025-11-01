@@ -13,4 +13,4 @@ def call(Map config = [:]){
     echo "Failed to Checkout for ${environment.toUpperCase()} : ${err.getMessage()}"
     error("Stopping pipeline due to failure Checkout for ${environment.toUpperCase()}")
   }
-  
+}
